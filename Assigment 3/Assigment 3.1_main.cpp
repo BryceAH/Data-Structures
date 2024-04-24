@@ -30,14 +30,19 @@ public:
     }
 
     void dequeue(){
+        node *temp = front;
+
         if (front != nullptr) {
-            node *temp = front;
-            front = front->next; 
-            delete temp; 
-            display(); 
+            front = front->next; // stores the node in the front to a temparary varible
+            cout << "value that was removed: "<< temp -> value << endl;
+            cout << "address that was removed: "<< temp << endl << endl;
+
+            delete temp; //deletes the front node
         }
         else {
-            cout << "There is not enough stuff in the queue" << endl;
+            front = nullptr; //updates the front to null pointer
+            rear = nullptr;  //updates the rear to null pointer
+            cout << "There is not enough stuff in the queue to remove" << endl<< endl;
         }
     }
    
@@ -62,19 +67,19 @@ private:
 
 int main(){
     queue q;
-    //q.enqueue(2);
-    //q.enqueue(4);
-    for (int i = 0; i<=10;i++){
+    for (int i = 1; i<=3;i++){ // adds three ints to the linked queue
     q.enqueue(i);
    }
 
-    q.display();
+   q.display(); // displays the linked queue
 
-   q.dequeue();
+    for (int i = 1; i<=4;i++){ // removes three ints from the queue then one more to show error checking 
+        q.dequeue();
+    }
 
+    q.enqueue(6); // adds one more to queue to display that you can add more to linked queue
 
-
-    q.display();
+    q.display(); // displays the new added int
 
     return 0;       
 }
