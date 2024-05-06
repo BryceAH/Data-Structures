@@ -1,0 +1,218 @@
+#include <iostream>
+#include <random>
+
+
+using namespace std;
+
+struct node {
+
+    int value; // integer value of each node
+    int pos; // interger of the position the value is
+    node *next; // pointer that points to the next nodes address
+
+};
+
+class queue{
+
+public:
+    queue() {
+        front = nullptr; //contructor to indecate that the queue is empty
+        rear = nullptr;
+        pos = 0;
+        srand(time(0));
+
+    }
+
+        void sort(){ //because of the two while loops this function would be O(n^2) in the worst case scenareo
+            bool sorted = false;
+            while(sorted != true){ 
+                    sorted = true;
+                    node *temp = front;
+                    while(temp != nullptr && temp->next != nullptr){ // ends the loop if either the temp or the next temp is the end of the list 
+                    if(temp->value > temp->next->value){ // checks to see the value if less than the next value
+                            // swap values
+                            int tempNumber = temp->value;
+                            temp->value = temp->next->value;
+                            temp->next->value = tempNumber;
+                            sorted = false; // if swapping is done, the list is not sorted yet
+                    }
+                    temp = temp->next;
+                    }
+                    }
+
+            // test
+            // step through the whole linked list and check that temp -> value is less than temp -> next -> value
+
+            node *test_temp = front;
+            while (test_temp -> next != nullptr){
+                if (test_temp -> value > test_temp -> next -> value){
+                    cout << "-- The list is NOT sorted-- " << endl << endl;
+                    return;
+                }
+                test_temp = test_temp -> next;
+            }
+            cout << "-- The list is sorted -- " <<endl <<endl;
+
+            }
+        void search(int val){
+                bool found = false;
+                node *temp = front;
+                while(temp != nullptr){ //becuase of this while loop this search funstion is O(n)
+                        if (temp -> value == val){
+                                cout << "int: " << temp -> value << " is at position: " << temp -> pos << endl << endl;
+
+                                found = true;
+                                break;
+                        }else{
+                                temp = temp -> next;
+                        }
+                }
+                if (found != true){
+                        cout << "value: " << val << " is not found" << endl;
+                }
+
+        }
+    
+    void remove(int pos){
+    // find desired position
+    // update previous nodes next to the address of the node after the removed one
+
+        node *temp = front;
+        node *newtemp = nullptr;
+        int index = 0;
+        while(temp != nullptr){
+        if (index == (pos - 2)) { // loops through nodes to find given position minus 1
+            cout << "node to be removed: " << temp->next->value << endl;
+            newtemp = temp->next;  // Save the node to be deleted
+            temp->next = newtemp->next;  // Update previous node's next to skip the node to be removed
+            delete newtemp;  // Delete the node
+            return;
+        } else {
+            temp = temp->next;
+            index++;
+        }
+        
+
+    }
+    }
+
+
+
+    void peek(int pos){
+        // find the desired pos 
+        // return the value at that position
+        node *temp = front;
+        int index = 0;
+
+        while(temp != nullptr){
+            if (index == (pos - 1)){ // loops through nodes to find given position
+                cout << "Position number " << pos <<" Peek Value: " << temp -> value << endl << endl; 
+                break;
+            }
+            else{
+                temp = temp -> next;
+                index = index + 1;
+
+            }
+
+        }
+    }
+
+    void add(int val, int pos){ // int is desired int to be placed, pos is desired position for it to be in
+    // find desired position
+    // update previous nodes next to the new values address
+    // update all following nodes addresses 
+        node *temp = front;
+        int index = 0;
+
+        while(temp != nullptr){
+            if (index == (pos - 1)){ // loops through nodes to find given position
+                node *newtemp = new node; // new temp node as a place holder to add "val" to the queue
+                newtemp -> value = val;
+                newtemp -> pos = pos + 1;
+                newtemp -> next = temp->next; // Link the new node to the next node
+                temp->next = newtemp; // Link the previous node to the new node
+            
+                node *current = newtemp->next;
+                while (current != nullptr){ // updates all the positions after the newley added node to pos + 1
+                    current -> pos++;
+                    current = current->next;
+                }
+                break;
+
+            }
+            else{
+                temp = temp -> next;
+                index = index + 1;
+            }
+
+        }
+
+    }
+   
+    void display() {
+
+        node *temp = front; // makes following while loop start at the front of the queue
+        while(temp != nullptr){
+            cout <<"Value of current node: "<< temp -> value << endl; //prints the value of the current node
+            //cout <<"current node address: "<< temp << endl; // gives address of current node
+            //cout <<"next node address: " << temp -> next << endl; //gives address of next node
+            cout << "current node positions: " << temp -> pos << endl << endl;
+            temp = temp -> next; //moves to next node
+
+        }
+        //cout << "end of linked list" << endl << endl;
+
+    }
+void enqueue(int val){
+        node *temp = new node; // new temp node as a place holder to add "val" to the queue
+        temp -> value = val;
+        temp -> pos = pos + 1;
+        temp -> next = nullptr; //becuase it is adding to end of queue it makes the next address null
+        if (rear == nullptr) { // if the queue is empty then it makes the front and rear the "temp"
+            front = rear = temp;
+        } else { // if the node is not empty then the new temp element is added onto the end and the pointer is updated to point to the new element 
+            rear->next = temp;
+            rear = temp;
+        }
+        pos = pos + 1;
+    }
+
+int random(){
+        int max = 10;
+        int random_number = rand() % max;
+        return random_number;
+
+}
+
+private:
+    node *front;
+    node *rear;
+    int pos; 
+
+};
+
+
+int main(){
+        queue q;
+
+        for (int i = 1; i<=10;i++){
+
+        int r = q.random();
+        q.enqueue(r);
+
+        }
+
+        cout << endl << "-- BEFORE SORTED LIST --" << endl << endl;
+        q.display();
+
+        q.sort();
+
+        cout << endl << "-- AFTER SORTED LIST --" << endl << endl;
+
+        q.display();
+
+        q.search(4);
+
+    return 0;       
+}
