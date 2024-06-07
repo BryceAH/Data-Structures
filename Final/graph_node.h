@@ -17,7 +17,9 @@ class GraphNode
     {
 
     public:
-        GraphNode();
+        GraphNode(string newName);
+        ~GraphNode();
+
 
         void addedge(GraphNode *destination, int weight);
 
