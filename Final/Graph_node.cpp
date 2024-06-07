@@ -1,13 +1,11 @@
 //Graph_node.cpp
 
-// 45min
-
 #include "graph_node.h"
 #include "edge.h"
 
-GraphNode::GraphNode()
+GraphNode::GraphNode(string newName)
 {
-    value = "";    
+    value = newName;    
 
 }
 
@@ -17,14 +15,21 @@ void GraphNode::addedge(GraphNode *destination, int weight)
     neighbors.push_back(newEdge);
 }
 
+GraphNode::~GraphNode()
+{
+for (auto neighbor: neighbors)
+{
+    delete neighbor;
+}
+neighbors.clear();
+}
+
 string GraphNode::getValue()
 {
-return value;
-
+    return value;
 }
 
 vector<edge *> GraphNode::getNeighbor()
 {
     return neighbors;
-
 }
