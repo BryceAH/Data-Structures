@@ -46,7 +46,7 @@ g.connectNodes("B","E", 3);
 g.connectNodes("B","D", 2);
 
 
-// g.shortestPath("A");
+g.shortestPath("A");
 g.minimumSpanningTree("A");
 
 // cout << g.getSize() << endl;
