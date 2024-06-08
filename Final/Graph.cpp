@@ -135,6 +135,7 @@ for (auto edge : currentNode->getNeighbor())
 
         
     GraphNode *lowestNode = new GraphNode("lowestNode"); //borrowed
+
     for (auto node:unvisitedNodes) // loops through list of unvisited nodes to find node with smallest distance
     {
         if(node->getDistance() < lowestNode->getDistance())
@@ -150,14 +151,54 @@ for (auto edge : currentNode->getNeighbor())
     currentNode = lowestNode;
 }
 
-for (auto node:nodes) //prints table and all values
-{
-cout << node->getValue()<< ": " << node->getDistance() << endl;
+// for (auto node:nodes) //prints table and all values
+// {
+// // cout << "156" << endl;
+// cout << node->getValue()<< ": " << node->getDistance();
+// // cout << "158" << endl;
+// cout <<" node->getDistance(): " << node->getDistance();
+// // cout << "160" << endl;
+// if(node->getPrevious() != nullptr){
+// cout <<" node->getPrevious(): " << node->getPrevious()->getValue() << endl;
+// } else if (node->getPrevious() == nullptr)
+// {
+//     cout << " Root" << endl;
+// }
+    cout << "Distances and paths from " << sourceName << ":\n";
+    for (auto node : nodes)
+    {
+        cout << node->getValue() << ": " << node->getDistance() << ", Path: "; // prints the value of the node and its distance from the source
+        printPath(node); // calls printpath function to print the path from source to this node
+        cout << endl;
+    }
 
-}
+// cout << "168" << endl;
+
+
+// node->getDistance();
+// node->getNeighbor();
+// node->getPrevious();
+// node->getValue();
+
+
+
+
+
+
 cout<<"\n";
 return "";
 }
+
+void Graph::printPath(GraphNode* node)
+{
+    if (node->getPrevious() != nullptr) // checks if get previous is null pointer to get to the source node
+    {
+        printPath(node->getPrevious()); // if get previous is not null pointer is recursivly calls the print path until it is
+        cout << " -> ";
+    }
+    cout << node->getValue(); // prints the value of the current node
+}
+
 
 
 
@@ -187,15 +228,18 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
     Graph m;
 
     GraphNode *sourceNode = nullptr;
-    GraphNode *currentNode = nullptr;
 
     vector<GraphNode *> visited;
-    vector<GraphNode *> unvisited;
+    vector<GraphNode *> unvisited = nodes;
+    vector<edge *> shortestEdges;
 
-    for (auto node : nodes)
-    {
-    unvisited.push_back(node);
-    }
+
+    // for (auto node : nodes)
+    // {
+    // unvisited.push_back(node);
+    // }
+
+    
 
 
     for (auto i:unvisited)
@@ -203,7 +247,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         if (sourceName == i->getValue()) // finds node with source name
         {
             sourceNode = i;
-            cout << "sourceNode->getValue(): "<< sourceNode->getValue() << endl;
+            // cout << "sourceNode->getValue(): "<< sourceNode->getValue() << endl;
             break;
         }
     }
@@ -214,18 +258,22 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
             return;
         }
         
-        currentNode = sourceNode;
+        GraphNode *currentNode = sourceNode;
 
     
-    int smallest = numeric_limits<int>::max();
-    edge *smallestEdge;
-    while(visited.size() < unvisited.size()){
+    while(visited.size() < unvisited.size()){ 
+        int smallest = numeric_limits<int>::max();
+        edge *smallestEdge = nullptr;
+
+
         for (auto edge : currentNode->getNeighbor()) // find shortest edge->weight
         {
-            // cout<<"edge->destination->getValue: " << edge->destination->getValue() << " edge->weight: "<<edge->weight <<endl;
-            if (edge->weight < smallest)
+
+            if (find(visited.begin(), visited.end(), edge->destination) == visited.end() && edge->weight < smallest) // checks if the destination node is not present in the visted vector and it also checks if edge weight is less than the current smallest weight 
             {
                 smallestEdge = edge; // finds the smallest edge weight in the neighbors
+                smallest = edge->weight;
+                shortestEdges.push_back(edge);
             }
         }
 
@@ -236,25 +284,41 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         }
         
         visited.push_back(currentNode);
-        m.addNode(smallestEdge->source->getValue());
-        m.addNode(smallestEdge->destination->getValue());
-
-        m.connectNodes(smallestEdge->source->getValue(),smallestEdge->destination->getValue(),smallestEdge->weight);
-
-
         int index = 0;
         for (auto node:unvisited) //erases nodes
         {
             if(node == currentNode)
             {
-                visited.push_back(node);
-                unvisited.erase(unvisited.begin() + index);
+             unvisited.erase(unvisited.begin() + index);
             }
             index += 1;
         }
-    currentNode = unvisited.front();
+        m.addNode(smallestEdge->source->getValue());
+        m.addNode(smallestEdge->destination->getValue());
 
-    // here
+        m.connectNodes(smallestEdge->source->getValue(),smallestEdge->destination->getValue(),smallestEdge->weight);
+        
+
+        currentNode = smallestEdge->destination;
+    }
+
+        cout << "Minimum Spanning Tree:" << endl;
+        for (auto edge : shortestEdges)
+        {
+            cout << edge->source->getValue() << " -> " << edge->destination->getValue() << ": " << edge->weight << endl;
+        }
+
+        // int index = 0;
+        // for (auto node:unvisited) //erases nodes
+        // {
+        //     if(node == currentNode)
+        //     {
+        //         visited.push_back(node);
+        //         unvisited.erase(unvisited.begin() + index);
+        //     }
+        //     index += 1;
+        // }
+
 
     // for (auto node:m.nodes) //prints table and all values
     // {
@@ -262,5 +326,5 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
 
     // }
 }
-}
+
 
