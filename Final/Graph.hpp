@@ -24,6 +24,8 @@ public:
     string shortestPath(string sourceName); // finds shortest distance from chosen node to every other node
 
     void minimumSpanningTree(string sourceName);
+
+    void printPath(GraphNode* node);
 private:
 
     vector<GraphNode *> nodes;
