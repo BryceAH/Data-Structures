@@ -26,9 +26,20 @@ class GraphNode
         string getValue();
 
         vector<edge *> getNeighbor();
+
+        int getDistance();
+
+        void setDistance(int input);
+
+        void setPrevious(GraphNode *input);
+
+        GraphNode *getPrevious();
         
 
     private:
+        int distance;
+
+        GraphNode *prev;
 
         string value;
 
