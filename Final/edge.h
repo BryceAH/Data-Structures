@@ -1,14 +1,14 @@
-    //edge.h
+//edge.h
 
-    #pragma once
+#pragma once
 
-    #include "graph_node.h"
+#include "graph_node.h"
 
-    class GraphNode;
+class GraphNode;
 
-    struct edge
-    {
-        GraphNode * source;
-        GraphNode * destination;
-        int weight;
-    };
+struct edge
+{
+    GraphNode * source; // the node being looked at
+    GraphNode * destination; // the node your going to
+    int weight; // distance between the source and dest
+};
