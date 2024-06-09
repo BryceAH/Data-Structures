@@ -1,4 +1,5 @@
-//Graph_node.cpp
+// Graph_node.cpp
+
 #pragma once
 
 #include "graph_node.h"
