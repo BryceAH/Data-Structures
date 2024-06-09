@@ -1,4 +1,4 @@
-//graph_node.h
+// Graph_node.h
 
 #pragma once
 
