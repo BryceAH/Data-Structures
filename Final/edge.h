@@ -1,4 +1,4 @@
-//edge.h
+// edge.h
 
 #pragma once
 
