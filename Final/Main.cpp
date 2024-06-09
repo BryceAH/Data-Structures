@@ -1,6 +1,4 @@
-//main.cpp
-
-//at 60 in cs260_spring_2023 session 27 
+// main.cpp
 
 #include <iostream>
 #include "Graph.hpp"
@@ -14,22 +12,9 @@ using namespace std;
 
 int main()
 {
-// edge *testEdge = new edge{nullptr, nullptr, 42};
-// cout << "testEdge ->source: " << testEdge->source << "\ntestEdge->Destination: " << testEdge->destination << "\ntestEdge->weight: " << testEdge->weight << endl;
-
-// GraphNode *newNode = new GraphNode("Albany"); 
-// cout << "newNode->getValue: " << newNode->getValue() << "\nnewNode->getNeighbors().size(): "<< newNode->getNeighbor().size() << endl;
-
-// newNode->addedge(newNode, 1);
-
-// cout << "newNode->getNeighbor().size(): " << newNode->getNeighbor().size() << endl;
-// cout << "newNode->getNeighbor().at(0)->destination->getValue(): " << newNode->getNeighbor().at(0)->destination->getValue() << endl;
-
-
-// delete newNode;
-
 Graph g;
 
+cout << "Graph number one " << endl;
 g.addNode("A");
 g.addNode("B");
 g.addNode("C");
@@ -45,16 +30,46 @@ g.connectNodes("E","D", 1);
 g.connectNodes("B","E", 3);
 g.connectNodes("B","D", 2);
 
+cout << "Added 5 nodes A,B,C,D,E" << endl;
+
+g.display();
 
 g.shortestPath("A");
+
 g.minimumSpanningTree("A");
 
-// cout << g.getSize() << endl;
+cout << "Graph number 2 \n" << endl;
+Graph b;
+
+b.addNode("A");
+b.addNode("B");
+b.addNode("C");
+b.addNode("D");
+b.addNode("E");
+
+b.connectNodes("A","C", 4);
+b.connectNodes("A","B", 8);
+b.connectNodes("C","B", 6);
+b.connectNodes("C","E", 10);
+b.connectNodes("C","D", 8);
+b.connectNodes("E","D", 2);
+b.connectNodes("B","E", 6);
+b.connectNodes("B","D", 4);
+
+
+
+cout << "Added 5 nodes A,B,C,D,E" << endl;
+
+b.display();
+
+b.shortestPath("A");
+
+b.minimumSpanningTree("A");
+
 
 
 
 cout << "end of program" << endl;
-
 
 return 0;       
 }
