@@ -1,4 +1,4 @@
-//Graph.cpp
+// Graph.cpp
 
 #pragma once
 
@@ -10,7 +10,6 @@
 
 using namespace std;
 
-//https://moodle.linnbenton.edu/mod/page/view.php?id=1552132&inpopup=1
 
 Graph::Graph()
 {
@@ -57,30 +56,16 @@ int Graph::getSize()
     return nodes.size();
 }
 
-// for (auto node:unvisitedNodes) //prints table and all values
-// {
-//     cout << node->getValue()<< ": " << node->getDistance() << endl;
+void Graph::display(){
+    for (auto node : nodes)
+    {
+        cout << node->getValue(); 
+        cout << endl;
+    }
+    cout << endl;
+}
 
-// }
-
-// cout << "unvisitedNodes.size(): "<< unvisitedNodes.size()<<endl;
-// for (auto node:unvisitedNodes) //prints table and all values
-// {
-// cout << node->getValue()<< ": " << node->getDistance() << endl;
-
-// }
-// for (auto node:unvisitedNodes) //prints table and all values
-// {
-//     cout << node->getValue()<< ": " << node->getDistance() << endl;
-
-// }
-//     for (auto node:unvisitedNodes) //prints table and all values
-// {
-//     cout << node->getValue()<< ": " << node->getDistance() << endl;
-
-// }
-
-string Graph::shortestPath(string sourceName)
+string Graph::shortestPath(string sourceName) //dijkstra's algorithm
 {
 vector<GraphNode *> unvisitedNodes;
 for (auto node : nodes){
@@ -105,7 +90,7 @@ sourceNode->setDistance(0); // sets source to 0
 
 
 GraphNode *currentNode = sourceNode;
-while(unvisitedNodes.size() != 0) // does most of the graphing
+while(unvisitedNodes.size() != 0) // loop that runs until there is no more unvisited nodes
 {
 
 
@@ -130,11 +115,7 @@ for (auto edge : currentNode->getNeighbor())
             index += 1;
         }
         
-
-
-
-        
-    GraphNode *lowestNode = new GraphNode("lowestNode"); //borrowed
+    GraphNode *lowestNode = new GraphNode("lowestNode");
 
     for (auto node:unvisitedNodes) // loops through list of unvisited nodes to find node with smallest distance
     {
@@ -144,26 +125,9 @@ for (auto edge : currentNode->getNeighbor())
         }
     }
 
-    // cout << "currentNode->getValue(): " << currentNode->getValue() << " currentNode->getDistance(): " << currentNode->getDistance() << endl<<endl;
-
-
-    
     currentNode = lowestNode;
 }
 
-// for (auto node:nodes) //prints table and all values
-// {
-// // cout << "156" << endl;
-// cout << node->getValue()<< ": " << node->getDistance();
-// // cout << "158" << endl;
-// cout <<" node->getDistance(): " << node->getDistance();
-// // cout << "160" << endl;
-// if(node->getPrevious() != nullptr){
-// cout <<" node->getPrevious(): " << node->getPrevious()->getValue() << endl;
-// } else if (node->getPrevious() == nullptr)
-// {
-//     cout << " Root" << endl;
-// }
     cout << "Distances and paths from " << sourceName << ":\n";
     for (auto node : nodes)
     {
@@ -172,24 +136,11 @@ for (auto edge : currentNode->getNeighbor())
         cout << endl;
     }
 
-// cout << "168" << endl;
-
-
-// node->getDistance();
-// node->getNeighbor();
-// node->getPrevious();
-// node->getValue();
-
-
-
-
-
-
 cout<<"\n";
 return "";
 }
 
-void Graph::printPath(GraphNode* node)
+void Graph::printPath(GraphNode* node) // used to print the shortest paths
 {
     if (node->getPrevious() != nullptr) // checks if get previous is null pointer to get to the source node
     {
@@ -198,29 +149,6 @@ void Graph::printPath(GraphNode* node)
     }
     cout << node->getValue(); // prints the value of the current node
 }
-
-
-
-
-// //////////////////////////////
-// int index = 0;
-// string deleteNode = "B";
-// for (auto node:unvisitedNodes) //earases nodes
-// {
-
-//     if(node->getValue() == deleteNode)
-//     {
-//         unvisitedNodes.erase(unvisitedNodes.begin() + index);
-//     }else
-//     {
-//         index += 1;
-//     }
-//     // cout << node->getValue() << endl;
-// }
-// /////////////////////////////////
-
-
-
 
 
 void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
@@ -233,21 +161,11 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
     vector<GraphNode *> unvisited = nodes;
     vector<edge *> shortestEdges;
 
-
-    // for (auto node : nodes)
-    // {
-    // unvisited.push_back(node);
-    // }
-
-    
-
-
     for (auto i:unvisited)
     {
         if (sourceName == i->getValue()) // finds node with source name
         {
             sourceNode = i;
-            // cout << "sourceNode->getValue(): "<< sourceNode->getValue() << endl;
             break;
         }
     }
@@ -305,26 +223,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         cout << "Minimum Spanning Tree:" << endl;
         for (auto edge : shortestEdges)
         {
-            cout << edge->source->getValue() << " -> " << edge->destination->getValue() << ": " << edge->weight << endl;
+            cout << edge->source->getValue() << " -> " << edge->destination->getValue() << " Weight: " << edge->weight << endl;
         }
-
-        // int index = 0;
-        // for (auto node:unvisited) //erases nodes
-        // {
-        //     if(node == currentNode)
-        //     {
-        //         visited.push_back(node);
-        //         unvisited.erase(unvisited.begin() + index);
-        //     }
-        //     index += 1;
-        // }
-
-
-    // for (auto node:m.nodes) //prints table and all values
-    // {
-    //     cout << node->getValue()<< ": " << node->getDistance() << endl;
-
-    // }
+        cout << endl;
 }
-
-
