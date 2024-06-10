@@ -1,5 +1,3 @@
-// main.cpp
-
 #include <iostream>
 #include "Graph.hpp"
 #include "Graph.cpp"
@@ -7,14 +5,19 @@
 #include "Graph_node.cpp"
 #include "edge.h"
 
-
 using namespace std;
 
 int main()
 {
+
+///////////////////////////////Graph g////////////////////////////////
+
 Graph g;
 
-cout << "Graph number one " << endl;
+printSlash();
+
+cout << "Graph number one \n" << endl;
+
 g.addNode("A");
 g.addNode("B");
 g.addNode("C");
@@ -38,6 +41,12 @@ g.shortestPath("A");
 
 g.minimumSpanningTree("A");
 
+printSlash();
+
+//////////////////////////////////////////////////////////////////////
+
+///////////////////////////////Graph b////////////////////////////////
+
 cout << "Graph number 2 \n" << endl;
 Graph b;
 
@@ -47,16 +56,14 @@ b.addNode("C");
 b.addNode("D");
 b.addNode("E");
 
-b.connectNodes("A","C", 4);
-b.connectNodes("A","B", 8);
-b.connectNodes("C","B", 6);
-b.connectNodes("C","E", 10);
-b.connectNodes("C","D", 8);
-b.connectNodes("E","D", 2);
-b.connectNodes("B","E", 6);
-b.connectNodes("B","D", 4);
-
-
+b.connectNodes("C","A", 9);
+b.connectNodes("C","E", 18);
+b.connectNodes("A","E", 14);
+b.connectNodes("A","D", 29);
+b.connectNodes("A","B", 24);
+b.connectNodes("D","B", 5);
+b.connectNodes("E","D", 14);
+b.connectNodes("E","B", 9);
 
 cout << "Added 5 nodes A,B,C,D,E" << endl;
 
@@ -66,8 +73,46 @@ b.shortestPath("A");
 
 b.minimumSpanningTree("A");
 
+//////////////////////////////////////////////////////////////////////
+///////////////////////////////Graph Oregon///////////////////////////
 
+printSlash();
 
+cout << "Graph Oregon \n" << endl;
+Graph o;
+
+o.addNode("Corvallis");
+o.addNode("Tangent");
+o.addNode("Brownsville");
+o.addNode("Sweet Home");
+o.addNode("Albany");
+o.addNode("Lebanon");
+o.addNode("I-5");
+
+o.connectNodes("Corvallis", "Albany", 9);
+o.connectNodes("Corvallis", "Tangent", 8.2);
+o.connectNodes("Albany", "Tangent", 6.8);
+o.connectNodes("Albany", "Lebanon", 12);
+o.connectNodes("Albany", "I-5", 5.8);
+o.connectNodes("Tangent", "I-5", 0.5);
+o.connectNodes("Tangent", "Brownsville", 11.9);
+o.connectNodes("Lebanon", "I-5", 9.8);
+o.connectNodes("Lebanon", "Brownsville", 10.8);
+o.connectNodes("Sweet Home", "Lebanon", 12.6);
+o.connectNodes("Brownsville", "I-5", 12);
+o.connectNodes("Brownsville", "Sweet Home", 12.4);
+
+cout << "Added 5 nodes A,B,C,D,E" << endl;
+
+o.display();
+
+o.shortestPath("Sweet Home");
+
+o.minimumSpanningTree("Lebanon");
+
+printSlash();
+
+//////////////////////////////////////////////////////////////////////
 
 cout << "end of program" << endl;
 
