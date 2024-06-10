@@ -25,6 +25,9 @@ public:
     void display(); // displays the nodes that are added
 
     void printSlash(); // this is to print the slashes in the output
+
+    void Tests(); // used to test the various functions
+
 private:
 
     vector<GraphNode *> nodes;
