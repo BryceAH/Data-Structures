@@ -14,7 +14,9 @@ int main()
 
 Graph g;
 
-printSlash();
+g.Tests();
+
+g.printSlash();
 
 cout << "Graph number one \n" << endl;
 
@@ -41,7 +43,7 @@ g.shortestPath("A");
 
 g.minimumSpanningTree("A");
 
-printSlash();
+g.printSlash();
 
 //////////////////////////////////////////////////////////////////////
 
@@ -76,7 +78,7 @@ b.minimumSpanningTree("A");
 //////////////////////////////////////////////////////////////////////
 ///////////////////////////////Graph Oregon///////////////////////////
 
-printSlash();
+g.printSlash();
 
 cout << "Graph Oregon \n" << endl;
 Graph o;
@@ -102,7 +104,7 @@ o.connectNodes("Sweet Home", "Lebanon", 12.6);
 o.connectNodes("Brownsville", "I-5", 12);
 o.connectNodes("Brownsville", "Sweet Home", 12.4);
 
-cout << "Added 5 nodes A,B,C,D,E" << endl;
+cout << "Added 7 nodes Corvallis,Tangent,Brownsville,Sweet Home,Albany,Lebanon,I-5" << endl;
 
 o.display();
 
@@ -110,7 +112,7 @@ o.shortestPath("Sweet Home");
 
 o.minimumSpanningTree("Lebanon");
 
-printSlash();
+g.printSlash();
 
 //////////////////////////////////////////////////////////////////////
 
