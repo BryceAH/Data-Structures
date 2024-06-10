@@ -1,3 +1,12 @@
+/*
+graph_node.h
+Name: Bryce Hillsman
+Student id: x00505693
+Date: 6/10/2024
+
+    This is the header file for Graph_node.cpp that contains the definition of the GraphNode class
+*/
+
 #pragma once
 
 
@@ -32,7 +41,6 @@ class GraphNode
         void setPrevious(GraphNode *input);
 
         GraphNode *getPrevious();
-        
 
     private:
         int distance;
