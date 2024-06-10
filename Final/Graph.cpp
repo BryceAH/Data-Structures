@@ -66,13 +66,13 @@ void Graph::display(){
 string Graph::shortestPath(string sourceName) //dijkstra's algorithm
 {
 vector<GraphNode *> unvisitedNodes;
-for (auto node : nodes){
+for (auto node : nodes){ //O(V)
     unvisitedNodes.push_back(node);
 }
 
 GraphNode *sourceNode = nullptr;
 
-for (auto i:nodes) // sets all values to inf
+for (auto i:nodes) // sets all values to inf //O(V)
 {
     if (sourceName == i->getValue()) // finds node with source name
     {
@@ -88,11 +88,11 @@ sourceNode->setDistance(0); // sets source to 0
 
 
 GraphNode *currentNode = sourceNode;
-while(unvisitedNodes.size() != 0) // loop that runs until there is no more unvisited nodes
+while(unvisitedNodes.size() != 0) // loop that runs until there is no more unvisited nodes //O(V)
 {
 
 
-for (auto edge : currentNode->getNeighbor())
+for (auto edge : currentNode->getNeighbor()) //O(V^2) becuase it is a for loop in the while loop
 {
 
     GraphNode *TempDest = edge->destination;
@@ -104,7 +104,7 @@ for (auto edge : currentNode->getNeighbor())
 }
 
         int index = 0;
-        for (auto node:unvisitedNodes) //erases nodes
+        for (auto node:unvisitedNodes) //erases nodes //O(V^2)
         {
             if(node == currentNode)
             {
@@ -115,7 +115,7 @@ for (auto edge : currentNode->getNeighbor())
         
     GraphNode *lowestNode = new GraphNode("lowestNode");
 
-    for (auto node:unvisitedNodes) // loops through list of unvisited nodes to find node with smallest distance
+    for (auto node:unvisitedNodes) // loops through list of unvisited nodes to find node with smallest distance //O(V^2)
     {
         if(node->getDistance() < lowestNode->getDistance())
         {
@@ -159,7 +159,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
     vector<GraphNode *> unvisited = nodes;
     vector<edge *> shortestEdges;
 
-    for (auto i:unvisited)
+    for (auto i:unvisited) //O(V)
     {
         if (sourceName == i->getValue()) // finds node with source name
         {
@@ -176,7 +176,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         
     visited.push_back(sourceNode);
     int index = 0;
-    for (auto node:unvisited) //erases nodes
+    for (auto node:unvisited) //erases nodes //O(V)
     {
         if(node == sourceNode)
         {
@@ -186,12 +186,12 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
     }
 
     
-    while(visited.size() < nodes.size()){ 
+    while(visited.size() < nodes.size()){ //O(V)
         int smallest = numeric_limits<int>::max();
         edge *smallestEdge = nullptr;
 
 
-        for(auto node : visited)
+        for(auto node : visited) //O(E^2)
         {
             for (auto edge : node->getNeighbor()) // find shortest edge->weight
             {
@@ -212,7 +212,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         
         visited.push_back(smallestEdge->destination);
         int index = 0;
-        for (auto node:unvisited) //erases nodes
+        for (auto node:unvisited) //erases nodes //O(E)
         {
             if(node == smallestEdge->destination)
             {
@@ -230,18 +230,73 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
     }
 
         cout << "Minimum Spanning Tree:" << endl;
-        for (auto edge : shortestEdges)
+        for (auto edge : shortestEdges) //O(E)
         {
             cout << edge->source->getValue() << " -> " << edge->destination->getValue() << " Weight: " << edge->weight << endl;
         }
         cout << endl;
 }
 
-void printSlash()
+void Graph::printSlash()
 {
 for(int i = 0; i<50; ++i)
     {
         cout << "/";
     }
 cout << endl;
+}
+
+void Graph::Tests()
+{
+    Graph t;
+
+    cout << "addNode test, Adding A and B\n" << endl;
+    t.addNode("A");
+    t.addNode("B");
+    if (t.getSize() == 2)
+    {
+        cout << "Successfully added 2 nodes\n" << endl;
+        cout << "Testing display\n" << endl;
+        t.display();
+    } else
+    {
+        cout << "Failed at adding 2 nodes\n" << endl;
+    }
+
+    cout << "connectNodes test, Connecting A and B\n" << endl;
+    t.connectNodes("A", "B", 5);
+    
+    vector<GraphNode *> neighborVector;
+    for (auto node : t.nodes) 
+    {
+        if (node->getValue() == "A")
+        {
+            for(auto i : node->getNeighbor())
+            {
+                neighborVector.push_back(i->destination);
+            }
+            break;
+        }
+        
+    }
+
+    if (neighborVector.empty() == false)
+    {
+        cout << "connectNodes Passed\n" << endl;
+    } else 
+    {
+        cout << "connectNodes Failed\n" << endl;
+
+    }
+
+    cout << "Testing getSize with 2 nodes\n" << endl;
+    if (t.getSize() == 2)
+    {
+        cout<<"getSize Passed\n" << endl;
+    } else
+    {
+        cout << "getSize Falied\n" << endl;
+    }
+    
+
 }
