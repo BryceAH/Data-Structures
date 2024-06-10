@@ -1,5 +1,3 @@
-//Graph.hpp
-
 #pragma once
 
 #include "graph_node.h"   
@@ -20,11 +18,13 @@ public:
 
     string shortestPath(string sourceName); // finds shortest distance from chosen node to every other node
 
-    void minimumSpanningTree(string sourceName);
+    void minimumSpanningTree(string sourceName); // finds the shortest distance to touch every node
 
-    void printPath(GraphNode* node);
+    void printPath(GraphNode* node); // used to print the shortest distances
 
-    void display();
+    void display(); // displays the nodes that are added
+
+    void printSlash(); // this is to print the slashes in the output
 private:
 
     vector<GraphNode *> nodes;
