@@ -1,3 +1,16 @@
+/*
+Graph.cpp
+Name: Bryce Hillsman
+Student id: x00505693
+Date: 6/10/2024
+
+    This is the file with most of the code, it contains the addNode() function that adds the vertices / nodes to the graph.
+The connectNodes() connects the nodes together with a weight. shortestPath() which finds the shortest distance from a chosen node to every other node. 
+minimumSpanningTree() which is used to find the shortest distance to touch every node. printPath() which is used to display the path on the screen. 
+display() which I used to display the names of the nodes that had been added, Tests() which is a function to test various parts of my program. and lastly 
+printSlash() which just prints 50 slashes to break up the graphs in the display.
+*/
+
 #pragma once
 
 #include "Graph.hpp"
