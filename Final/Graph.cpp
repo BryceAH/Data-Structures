@@ -1,5 +1,3 @@
-// Graph.cpp
-
 #pragma once
 
 #include "Graph.hpp"
@@ -176,24 +174,35 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
             return;
         }
         
-        GraphNode *currentNode = sourceNode;
+    visited.push_back(sourceNode);
+    int index = 0;
+    for (auto node:unvisited) //erases nodes
+    {
+        if(node == sourceNode)
+        {
+            unvisited.erase(unvisited.begin() + index);
+        }
+        index += 1;
+    }
 
     
-    while(visited.size() < unvisited.size()){ 
+    while(visited.size() < nodes.size()){ 
         int smallest = numeric_limits<int>::max();
         edge *smallestEdge = nullptr;
 
 
-        for (auto edge : currentNode->getNeighbor()) // find shortest edge->weight
+        for(auto node : visited)
         {
-
-            if (find(visited.begin(), visited.end(), edge->destination) == visited.end() && edge->weight < smallest) // checks if the destination node is not present in the visted vector and it also checks if edge weight is less than the current smallest weight 
+            for (auto edge : node->getNeighbor()) // find shortest edge->weight
             {
-                smallestEdge = edge; // finds the smallest edge weight in the neighbors
-                smallest = edge->weight;
-                shortestEdges.push_back(edge);
+
+                if (find(visited.begin(), visited.end(), edge->destination) == visited.end() && edge->weight < smallest) // checks if the destination node is not present in the visted vector and it also checks if edge weight is less than the current smallest weight 
+                {
+                    smallestEdge = edge; // finds the smallest edge weight in the neighbors
+                    smallest = edge->weight;
+                }
             }
-        }
+        }    
 
         if (smallestEdge == nullptr)
         {
@@ -201,11 +210,11 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
             break;
         }
         
-        visited.push_back(currentNode);
+        visited.push_back(smallestEdge->destination);
         int index = 0;
         for (auto node:unvisited) //erases nodes
         {
-            if(node == currentNode)
+            if(node == smallestEdge->destination)
             {
              unvisited.erase(unvisited.begin() + index);
             }
@@ -217,7 +226,7 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
         m.connectNodes(smallestEdge->source->getValue(),smallestEdge->destination->getValue(),smallestEdge->weight);
         
 
-        currentNode = smallestEdge->destination;
+        shortestEdges.push_back(smallestEdge);
     }
 
         cout << "Minimum Spanning Tree:" << endl;
@@ -226,4 +235,13 @@ void Graph::minimumSpanningTree(string sourceName) //Prim's algorithm
             cout << edge->source->getValue() << " -> " << edge->destination->getValue() << " Weight: " << edge->weight << endl;
         }
         cout << endl;
+}
+
+void printSlash()
+{
+for(int i = 0; i<50; ++i)
+    {
+        cout << "/";
+    }
+cout << endl;
 }
