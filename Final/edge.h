@@ -1,3 +1,12 @@
+/*
+edge.h
+Name: Bryce Hillsman
+Student id: x00505693
+Date: 6/10/2024
+
+    This is the header file for the edge struct that sets the values for the source, desination and weight
+*/
+
 #pragma once
 
 #include "graph_node.h"
