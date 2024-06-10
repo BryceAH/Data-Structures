@@ -1,5 +1,3 @@
-// Graph_node.h
-
 #pragma once
 
 
