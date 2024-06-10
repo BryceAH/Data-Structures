@@ -1,3 +1,14 @@
+/*
+Main.cpp
+Name: Bryce Hillsman
+Student id: x00505693
+Date: 6/10/2024
+
+    This is my main file for all 5 other files I have made 3 graphs
+2 of which are basic letters with small values to and from the nodes, 
+the third Graph is of towns in Oregon with distances as the crow flies. 
+*/
+
 #include <iostream>
 #include "Graph.hpp"
 #include "Graph.cpp"
@@ -46,7 +57,6 @@ g.minimumSpanningTree("A");
 g.printSlash();
 
 //////////////////////////////////////////////////////////////////////
-
 ///////////////////////////////Graph b////////////////////////////////
 
 cout << "Graph number 2 \n" << endl;
